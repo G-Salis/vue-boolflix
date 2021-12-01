@@ -1,28 +1,50 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <Nav @search="searchToMain"/>
+    <Main :movies="movies"/>
+  
+ 
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Nav from "./components/Nav.vue"
+import Main from "./components/Main.vue"
+import axios from "axios"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
+    Nav,
+    Main,
+  
+  },
+
+    data(){
+    return{
+      navSearch:'',
+      movies: [],
+    }
+  },
+    methods:{
+    searchToMain(search){
+      this.navSearch = search;
+      console.log(this.navSearch);
+      axios.get(`https://api.themoviedb.org/3/search/movie?api_key=c50fb50991ae68804531ae453cb59c3e&query=${this.navSearch}`)
+      .then(r =>{
+          this.movies = r.data.results;
+          console.log('dopo', this.navSearch);
+          console.log(this.movies);
+        })
+    }
   }
+
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "./assets/style/generals.scss";
+@import "./assets/style/utilities.scss";
 </style>
