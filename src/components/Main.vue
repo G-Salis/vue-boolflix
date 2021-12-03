@@ -6,6 +6,7 @@
 
       <Card
       :movies="movies"
+      :type="type"
       />
       
     </div>
@@ -24,6 +25,7 @@ import Card from "./Card.vue";
   },
    props:{
         movies: Array,
+        type: String
     },
   }
 
