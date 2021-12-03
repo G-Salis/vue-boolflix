@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <Nav @search="searchToMain"/>
+    <Nav @search="searchMedia"/>
     <Main :movies="movies"/>
   
  
@@ -29,7 +29,7 @@ export default {
     }
   },
     methods:{
-    searchToMain(search){
+    searchMedia(search){
       this.navSearch = search;
       console.log(this.navSearch);
       axios.get(`https://api.themoviedb.org/3/search/movie?api_key=c50fb50991ae68804531ae453cb59c3e&query=${this.navSearch}`)
