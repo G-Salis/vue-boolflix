@@ -5,7 +5,25 @@
     :key="movie.id">
       <li v-if="type === 'movie'">{{movie.title}}</li>
       <li v-else>{{movie.name}}</li>
-      <li><img :src="`http://image.tmdb.org/t/p/w300/${movie.poster_path}`" alt=""></li>
+      <li>
+
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img v-if="movie.poster_path != null"
+              :src="`http://image.tmdb.org/t/p/w300/${movie.poster_path}`" alt="">
+              <div v-else  class="img-default">NO IMAGE</div>
+            </div>
+            <div class="flip-card-back">
+              
+              <p>TRAMA:{{movie.overview}}</p>
+            
+            </div>
+          </div>
+        </div>
+          
+      </li>
+        
       <li v-if="type === 'movie'">Titolo Originale: {{movie.original_title}}</li>
       <li v-else>Titolo Originale: {{movie.original_name}}</li>
       <li><img class="flags"
@@ -55,10 +73,58 @@ export default {
 ul{
   list-style: none;
   text-align: center;
-  background-color: darkred;
+  background-color: #2E3A46;
   margin: 20px;
   }
 .flags{
   width: 30px;
 }
+.img-default{
+  background-color: blue;
+  width: 300px;
+  height: 450px;
+  text-align: center;
+}
+.flip-card {
+  background-color: transparent;
+  width: 300px;
+  height: 450px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  color: black;
+}
+
+.flip-card-back {
+  background-color: darkred;
+  color: white;
+  transform: rotateY(180deg);
+  overflow: auto;
+}
 </style>
+
+
+
